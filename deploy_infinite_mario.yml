@@ -37,13 +37,8 @@
       state: absent
     ignore_errors: yes
 
-  - name: Run Mario Container
-    containers.podman.podman_container:
-      name: infinite_mario
-      image: quay.io/kmoini/infinite_mario
-      state: started
-      expose:
-        - 8080
+  - name: Run Mario Container with command module (bug with expose ports)
+    command: podman run -d -p 8080:8080 --name infinite_mario quay.io/kmoini/infinite_mario
 
 #  - name: Template over the Mario Service
 #    template:

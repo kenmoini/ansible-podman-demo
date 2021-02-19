@@ -2,6 +2,11 @@
 - name: Deploy Development Nginx Containers to RHEL Podman Host
   hosts: all
   become: yes
+  collections:
+    - name: containers.podman
+
+  vars:
+    custom_message: Hello from inside an nginx container!
 
   tasks:
 

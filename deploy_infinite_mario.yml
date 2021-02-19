@@ -2,6 +2,8 @@
 - name: Deploy Mario Containers to RHEL Podman Host
   hosts: all
   become: yes
+  collections:
+    - name: containers.podman
 
   vars:
     container_user: root

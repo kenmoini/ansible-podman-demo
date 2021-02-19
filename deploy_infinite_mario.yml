@@ -29,6 +29,13 @@
     containers.podman.podman_container:
       name: infinite_mario
       state: stopped
+    ignore_errors: yes
+
+  - name: Remove existing Mario Container
+    containers.podman.podman_container:
+      name: infinite_mario
+      state: absent
+    ignore_errors: yes
 
   - name: Run Mario Container
     containers.podman.podman_container:

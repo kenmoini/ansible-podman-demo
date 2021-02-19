@@ -2,8 +2,6 @@
 - name: Deploy Development Nginx Containers to RHEL Podman Host
   hosts: all
   become: yes
-  collections:
-    - name: containers.podman
 
   vars:
     custom_message: Hello from inside an nginx container!
@@ -24,7 +22,7 @@
       dest: /opt/
 
   - name: Run Container build for Nginx Container
-    container.podman.podman_image:
+    containers.podman.podman_image:
       name: rhel8_nginx
       path: /opt/container_nginx
       build:

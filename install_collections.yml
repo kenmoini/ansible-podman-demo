@@ -1,0 +1,7 @@
+---
+- name: Install Ansible Collections
+  hosts: all
+
+  tasks:
+    - name: Install Collections via command
+      command: ansible-galaxy collections install -r collections/requirements.yml

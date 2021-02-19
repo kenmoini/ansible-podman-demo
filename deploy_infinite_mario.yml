@@ -24,7 +24,7 @@
       dest: /opt/
 
   - name: Pre-Pull a container image from Quay
-    container.podman.podman_image:
+    containers.podman.podman_image:
       name: quay.io/kmoini/infinite_mario
 
   - name: Template over the Mario Service

@@ -25,6 +25,11 @@
     containers.podman.podman_image:
       name: quay.io/kmoini/infinite_mario
 
+  - name: Stop existing Mario Container
+    containers.podman.podman_container:
+      name: infinite_mario
+      state: stopped
+
   - name: Run Mario Container
     containers.podman.podman_container:
       name: infinite_mario

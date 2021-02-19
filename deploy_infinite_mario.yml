@@ -31,7 +31,7 @@
       image: quay.io/kmoini/infinite_mario
       state: started
       expose:
-        - 8080
+        - "8080:8080"
 
 #  - name: Template over the Mario Service
 #    template:

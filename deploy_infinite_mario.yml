@@ -25,17 +25,25 @@
     containers.podman.podman_image:
       name: quay.io/kmoini/infinite_mario
 
-  - name: Template over the Mario Service
-    template:
-      src: mario.service.j2
-      dest: /etc/systemd/system/infinite-mario.service
-
-  - name: Reload systemD daemons
-    ansible.builtin.systemd:
-      daemon_reload: yes
-
-  - name: Start Infinite Mario Service
-    service:
-      name: infinite-mario
+  - name: Run Mario Container
+    containers.podman.podman_container:
+      name: infinite_mario
+      image: quay.io/kmoini/infinite_mario
       state: started
-      enabled: yes
+      expose:
+        - 8080
+
+#  - name: Template over the Mario Service
+#    template:
+#      src: mario.service.j2
+#      dest: /etc/systemd/system/infinite-mario.service
+#
+#  - name: Reload systemD daemons
+#    ansible.builtin.systemd:
+#      daemon_reload: yes
+#
+#  - name: Start Infinite Mario Service
+#    service:
+#      name: infinite-mario
+#      state: started
+#      enabled: yes

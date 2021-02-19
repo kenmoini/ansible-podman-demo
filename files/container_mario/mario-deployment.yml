@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infinite-mario-deployment
+  labels:
+    app: infinite-mario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: infinite-mario
+  template:
+    metadata:
+      labels:
+        app: infinite-mario
+    spec:
+      containers:
+      - name: infinite-mario
+        image: quay.io/kmoini/infinite_mario
+        ports:
+        - containerPort: 8080
+          hostPort: 8080
+          protocol: TCP

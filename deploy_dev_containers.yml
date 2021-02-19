@@ -1,0 +1,34 @@
+---
+- name: Deploy Development Nginx Containers to RHEL Podman Host
+  hosts: all
+  become: yes
+
+  tasks:
+
+  - name: System Update
+    include_tasks: tasks/system_update.yml
+    vars:
+      reboot_after_kernel_update: true
+
+  - name: Install Podman
+    include_tasks: tasks/install_podman.yml
+
+  - name: Copy over Nginx Dockerfile and assets
+    copy:
+      src: files/container_nginx
+      dest: /opt/
+
+  - name: Run Container build for Nginx Container
+    container.podman.podman_image:
+      name: rhel8_nginx
+      path: /opt/container_nginx
+      build:
+        format: docker
+
+  - name: Run Nginx Container
+    containers.podman.podman_container:
+      name: rhel8_nginx
+      image: rhel8_nginx
+      state: started
+      expose:
+        - 8080

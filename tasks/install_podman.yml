@@ -1,0 +1,12 @@
+---
+- name: Install Podman via DNF
+  dnf:
+    name: podman
+    state: latest
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Install Podman via APT
+  apt:
+    name: podman
+    state: latest
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

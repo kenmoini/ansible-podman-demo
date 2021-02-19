@@ -1,0 +1,14 @@
+[Unit]
+Description=infinite-mario
+
+[Service]
+Restart=always
+User={{ container_user }}
+Group={{ container_user }}
+ExecStartPre=/usr/bin/podman pod rm infinite-mario-deployment-pod-0 -f -i
+ExecStart=/usr/bin/podman play kube /opt/container_mario/mario-deployment.yml
+ExecStop=/usr/bin/podman pod rm infinite-mario-deployment-pod-0 -f -i
+Type=forking
+
+[Install]
+WantedBy=multi-user.target

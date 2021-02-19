@@ -1,0 +1,41 @@
+---
+- name: Deploy Mario Containers to RHEL Podman Host
+  hosts: all
+  become: yes
+
+  vars:
+    container_user: root
+
+  tasks:
+
+  - name: System Update
+    include_tasks: tasks/system_update.yml
+    vars:
+      reboot_after_kernel_update: true
+
+  - name: Install Podman
+    include_tasks: tasks/install_podman.yml
+
+  - name: Copy over Project Infinite Mario assets
+    copy:
+      src: files/container_mario
+      dest: /opt/
+
+  - name: Pre-Pull a container image from Quay
+    container.podman.podman_image:
+      name: quay.io/kmoini/infinite_mario
+
+  - name: Template over the Mario Service
+    template:
+      src: mario.service.j2
+      dest: /etc/systemd/system/infinite-mario.service
+
+  - name: Reload systemD daemons
+    ansible.builtin.systemd:
+      daemon_reload: yes
+
+  - name: Start Infinite Mario Service
+    service:
+      name: infinite-mario
+      state: started
+      enabled: yes

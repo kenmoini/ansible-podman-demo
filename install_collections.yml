@@ -1,6 +1,6 @@
 ---
 - name: Install Ansible Collections
-  hosts: all
+  hosts: localhost
 
   tasks:
     - name: Install Collections via command
